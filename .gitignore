@@ -1,0 +1,44 @@
+# ---- 密钥与环境（务必不要提交） ----
+.env
+.env.*
+*.key
+*.pem
+token*.txt
+*secret*
+
+# ---- 操作系统 ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 编辑器 / IDE ----
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# ---- 前端 ----
+node_modules/
+dist/
+build/
+.cache/
+*.log
+
+# ---- Java / Maven / Gradle ----
+target/
+out/
+*.class
+.gradle/
+build/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ---- Office / 临时文件 ----
+~$*.docx
+~$*.pptx
+~$*.xlsx
+*.tmp
