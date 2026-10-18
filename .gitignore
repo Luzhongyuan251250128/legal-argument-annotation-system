@@ -42,3 +42,7 @@ venv/
 ~$*.pptx
 ~$*.xlsx
 *.tmp
+
+# ---- 运行时产物：后端导出的标注结果与论证图示 ----
+server/exports/*
+!server/exports/.gitkeep

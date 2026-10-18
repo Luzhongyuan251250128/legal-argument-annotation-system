@@ -26,17 +26,47 @@
 | --- | --- | --- |
 | 需求文档（按阶段组织） | 需求基线，v1.1，含各阶段待确认问题 Q1–Q18 | [`docs/requirements/requirements-by-phase.md`](docs/requirements/requirements-by-phase.md) |
 | 标注与图示指南 v1.2 | 领域规范：论证结构的标注与图示标准，只读参考资料 | [`docs/reference/annotation-guideline-v1.2.pdf`](docs/reference/annotation-guideline-v1.2.pdf) |
-| 界面原型 | 标注主界面的 HTML 原型 | [`prototype/index.html`](prototype/index.html) |
+| 环境配置与启动文档 | 数据库初始化、后端配置、启动与常见问题 | [`docs/setup.md`](docs/setup.md) |
+| 界面原型 | 标注主界面的 HTML 原型（静态，不参与运行） | [`prototype/index.html`](prototype/index.html) |
+
+## 三、快速启动
+
+完整步骤见 [`docs/setup.md`](docs/setup.md)，最短路径：
+
+```bash
+mysql -u root -p < database/schema.sql   # 建库建表 + 初始管理员（admin / 123456）
+
+cd server
+cp .env.example .env                     # 只需改 DB_PASSWORD
+npm install
+npm start
+```
+
+随后访问 <http://localhost:3000/>，前端由后端托管。
 
 ## 四、当前目录结构
 
 ```text
 .
+├─ database/                # 数据库脚本
+│  ├─ schema.sql            # 表结构 + 标签体系 + 初始管理员账号
+│  └─ reset.sql             # 删库重置
+├─ frontend/
+│  └─ index.html            # 可运行前端（Vue 3 + axios，单文件）
+├─ server/                  # 后端（Express + MySQL）
+│  ├─ app.js                # 入口与路由挂载
+│  ├─ db.js                 # mysql2 连接池
+│  ├─ middleware/           # JWT 鉴权
+│  ├─ routes/               # auth / users / labels / tasks / annotations /
+│  │                        # adjudications / documents / exports / teaching / admin
+│  ├─ utils/                # 统一响应、裁判理由抽取、最终版本合并
+│  ├─ exports/              # 导出产物（运行时生成，已忽略）
+│  └─ .env.example          # 环境变量模板
 ├─ docs/
 │  ├─ requirements/         # 需求文档（Markdown，可直接 diff / 评审）
-│  └─ reference/            # 领域规范、只读参考资料
-├─ prototype/               # 界面原型
-└─ src/                     # 项目源码（待补充）
+│  ├─ reference/            # 领域规范、只读参考资料
+│  └─ setup.md              # 环境配置与启动文档
+└─ prototype/               # 界面原型
 ```
 
 ## 五、原型
@@ -46,6 +76,9 @@
 ```bash
 start prototype/index.html      # Windows
 ```
+
+`prototype/index.html` 是早期的静态界面稿，仅用于评审演示；实际可交互的页面是 `frontend/index.html`，
+需按上文启动后端后通过 <http://localhost:3000/> 访问。
 
 ## 六、约定
 
